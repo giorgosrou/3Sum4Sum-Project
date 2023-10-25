@@ -1,0 +1,116 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+% Update this information to reflect yourself
+\title{Assignment 1: 3SUM}
+\author{Georgios Rounis}
+\date{2022-09-19}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+The current report aims to present the results of the experiments that compare the performance of different algorithms used to solve the 3SUM and the 4SUM problem. In addition, for each implementation, a set of unit tests has been created to verify the given solution and ensure the validity of each algorithm. Lastly, the results are presented numerically in a table and visually as a plot. Please find the code in the following repo path:
+\textit{https://github.itu.dk/gero/ThreeFourSum2022.git}
+
+\section{Implementation}
+\subsection{3SUM}
+The 3SUM problem includes a common cubic algorithm with three nested loops, a quadratic algorithm that initially sorts the input list, and through a smart linear read, we discover if there are values that satisfy our conditions. The last algorithm describes a more sophisticated solution that stores all the elements of the list in a hash map, along with their indices in the original list, and iterates over each pair of elements (a,b) till we find a value equal to $-a - b$ that is in the list. The reason why there is an additional check for $j < k$ is to ensure that each value on the list is not used more than once.
+
+\subsection{4SUM}
+The first solution for 4SUM is the try of all elements (4 nested for loops) that ensures a quartic running time. Like in 3SUM, the alternative solution(cubic) sorts the list and performs a specific sequential search. The running time of this solution is cubic. The last algorithm stores in a hash-map, the sum of a + b together with a list of tuples (a, b).
+
+\subsection{Unit Testing}
+To verify the correctness of the implementations a set of test cases using assertNull, assertNotNull and assertArrayEquals methods have been created, using JUnit.
+
+
+\section{Experiments}
+
+After the algorithms implementation and the extensive unit testing, the project was built as two JAR packages(one for 3SUM and 4SUM respectively) producing the expected output along with the main method. The algorithms have been called from Python and NumPy was used to generate random
+input. A measurement function has been added in order to measure the
+running time of the specified algorithm. After implementing individual
+measurements, the framework to perform a set of experiments was included, and which creates a .csv file for the results of either 4SUM or 3SUM (depends on which algorithm you invoke). The data are presented numerically in tables which include the Average running time and the Standard deviation in relation to the number n of items. Then plots for our algorithms have been created using the refined results.
+
+\section{Results}
+
+Looking at the results of 3SUM problem experiments, we conclude that The three implementations have a similar running time when the input is small. As the number of elements n increases, the running time increases dramatically. It is clear according to the plot that the Quadratic implementation performs better than the Hash-map solution (for n=577536 hashmap solutions has almost the same running time with quadratic for n =227414) while theoretically both should be quadratic worst case. We assume this happens due to Java implementation of Hashmap.
+
+\begin{table}[h]
+  \begin{center}
+  \caption{With a \textbf{TIMEOUT = 30}, \textbf{I MAX value = 30} and \textbf{M = 5}. 
+  Cubic average worst-case running time for 3SUM problem.}
+  \label{tbl:threesum_cubic}
+  \input{threesum_cubic_tabular.tex}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+  \caption{With a \textbf{TIMEOUT = 30}, \textbf{I MAX value = 30} and \textbf{M = 5}. 
+  Quadratic average worst-case running time for 3SUM problem.}
+  \label{tbl:threesum_quadratic}
+  \input{threesum_quadratic_tabular.tex}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+  \caption{With a \textbf{TIMEOUT = 30}, \textbf{I MAX value = 30} and \textbf{M = 5}. 
+  Hashmap average worst-case running time for 3SUM problem.}
+  \label{tbl:threesum_hashmap}
+  \input{threesum_hashmap_tabular.tex}
+  \end{center}
+\end{table}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=\textwidth]{Plot_threesum.pdf}
+    \caption{Plot showing the running times of 3SUM problem}
+    \label{fig:plot3sum}
+  \end{center}
+\end{figure}
+
+\clearpage
+
+According to the results of the 4SUM problem, we conclude that all three solutions perform similar when the number of element n is small, but Hashmap solution performs the best as the number n is increased, slightly better than the cubic one.
+
+\begin{table}[h]
+  \begin{center}
+  \caption{With a \textbf{TIMEOUT = 30}, \textbf{I MAX value = 30} and \textbf{M = 5}. 
+  Quartic average worst-case running time for 4SUM problem.}
+  \label{tbl:threesum_quadratic}
+  \input{foursum_quartic_tabular.tex}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+  \caption{With a \textbf{TIMEOUT = 30}, \textbf{I MAX value = 30} and \textbf{M = 5}. 
+  Cubic average worst-case running time for 4SUM problem.}
+  \label{tbl:foursum_cubic}
+  \input{foursum_cubic_tabular.tex}
+  \end{center}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}
+  \caption{With a \textbf{TIMEOUT = 30}, \textbf{I MAX value = 30} and \textbf{M = 5}. 
+  Hashmap average worst-case running time for 4SUM problem.}
+  \label{tbl:foursum_hashmap}
+  \input{foursum_hashmap_tabular.tex}
+  \end{center}
+\end{table}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=\textwidth]{Plot_foursum.pdf}
+    \caption{Plot showing the running times of 4SUM problem}
+    \label{fig:plot3sum}
+  \end{center}
+\end{figure}
+
+\clearpage
+\end{document}
+
